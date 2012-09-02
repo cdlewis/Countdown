@@ -62,7 +62,14 @@
 				time_left += format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
 				
 				if( diff >= 0 )
+				{
 					document.body.style.color = 'red';
+					if( target_url != -1 )
+					{
+						clearInterval( interval_id );
+						window.location = target_url;
+					}
+				}
 
 				return time_left;
 			}
@@ -76,15 +83,22 @@
 	<script type="text/javascript">
 		try
 		{
-			var raw = window.location.href.split( '#' );
-			var x = raw[ 1 ].split( '.' );
+			var raw = window.location.href.split( '#' )[ 1 ].split( ';' );
+
+			var x = raw[ 0 ].split( '.' );
 			var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
+			
+			if( raw.length == 2 )
+				target_url = raw[ 1 ];
+			else
+				target_url = -1;
 		}
 		catch( e )
 		{
 			alert( 'Invalid date specified, revering to current time' );
 			var target_date = new Date();
+			target_url = -1;
 		}
-		setInterval( function () { document.getElementById( "counter" ).innerHTML = timeRemaining( target_date ); }, 100 );
+		interval_id = setInterval( function () { document.getElementById( "counter" ).innerHTML = timeRemaining( target_date ); }, 100 );
 	</script>
 </html>
