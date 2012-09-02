@@ -1,11 +1,11 @@
 Countdown
 =========
 
-This is a simple javascript countdown timer. A version of it is hosted at: cdlewis.github.com/Countdown.
+This is a simple javascript countdown timer. A version of it is hosted at: http://cdlewis.github.com/Countdown.
 
 The timer can be altered by modifying the URL. The scheme is as follows:
 ```
-URL#<year><month><day><hour><minute>;<redirect_url (optional)>.
+URL#<year>.<month>.<day>.<hour>.<minute>;<redirect_url (optional)>.
 ```
 
 For example:
