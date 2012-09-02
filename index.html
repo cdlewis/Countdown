@@ -61,6 +61,9 @@
 				time_left += format( ( ( diff % aDay ) % aHour ) / aMinute ) + ":";
 				time_left += format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
 				
+				if( diff >= 0 )
+					document.body.style.color = 'red';
+
 				return time_left;
 			}
 		</script>
@@ -75,7 +78,7 @@
 		{
 			var raw = window.location.href.split( '#' );
 			var x = raw[ 1 ].split( '.' );
-			target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
+			var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
 		}
 		catch( e )
 		{
