@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<title>Chris' Countdown</title>
+		<style type="text/css">
+			*, html, body, #container #counter
+			{
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+			
+			body
+			{
+				background-color: black;
+				color: white;
+				font-size: 9em;
+				font-family: Verdana;
+			}
+			
+			#container
+			{
+				display: table;
+				margin: 0 auto;
+			}
+			
+			#counter
+			{
+				display: table-cell;
+				vertical-align: middle;
+			}
+		</style>
+		<script type="text/javascript">
+			// Define time in ms
+			aDay = 86400000;
+			aHour = 3600000;
+			aMinute = 60000;
+			aSecond = 1000;
+		
+			// Pad the number with an extra zero and round down (lack of integer division fail!)
+			function format( number )
+			{
+				if( number < 0 )
+					number = number * -1;
+				if( number > -10 && number < 10 )
+					return "0" + Math.floor(number);
+				return Math.floor(number);
+			}
+			
+			// Calculate time remaining based on current time
+			function timeRemaining( twins )
+			{
+				// current time
+				now = new Date();
+				
+				// difference in time (ms)
+				diff = now.getTime() - twins.getTime();
+
+				time_left = "";
+				time_left += format( diff / aDay ) + ":";
+				time_left += format( ( diff % aDay ) / aHour ) + ":";
+				time_left += format( ( ( diff % aDay ) % aHour ) / aMinute ) + ":";
+				time_left += format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
+				
+				return time_left;
+			}
+		</script>
+	</head>	
+	<body>
+		<div id="container">
+			<p id="counter"></p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		try
+		{
+			var raw = window.location.href.split( '#' );
+			var x = raw[ 1 ].split( '.' );
+			var target_date = new Date( x[ 0 ], x[ 1 ], x[ 2 ], x[ 3 ], x[ 4 ] ); // Year, Month, Day, Hours, Mins
+		}
+		catch( e )
+		{
+			alert( 'Invalid date specified, revering to current time' );
+			var target_date = new Date();
+		}
+		setInterval( function () { document.getElementById( "counter" ).innerHTML = timeRemaining( target_date ); }, 100 );
+	</script>
+</html>
