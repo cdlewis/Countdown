@@ -39,28 +39,19 @@
 			// Pad the number with an extra zero and round down (lack of integer division fail!)
 			function format( number )
 			{
-				if( number < 0 )
-					number = number * -1;
 				if( number > -10 && number < 10 )
-					return "0" + Math.floor(number);
-				return Math.floor(number);
+					return "0" + Math.floor( number );
+				return Math.floor( number );
 			}
 			
 			// Calculate time remaining based on current time
 			function timeRemaining( twins )
 			{
-				// current time
-				now = new Date();
-				
 				// difference in time (ms)
-				diff = now.getTime() - twins.getTime();
+				var now = new Date();
+				var diff = now.getTime() - twins.getTime();
 
-				time_left = "";
-				time_left += format( diff / aDay ) + ":";
-				time_left += format( ( diff % aDay ) / aHour ) + ":";
-				time_left += format( ( ( diff % aDay ) % aHour ) / aMinute ) + ":";
-				time_left += format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
-				
+				// Check if countdown should end
 				if( diff >= 0 )
 				{
 					document.body.style.color = 'red';
@@ -69,6 +60,16 @@
 					
 					if( target_url != -1 )
 						youtube_iframe( target_url );
+					
+					var time_left = "00:00:00:00";
+				}
+				// Otherwise format normally
+				else
+				{
+					var time_left = format( diff / aDay ) + ":" +
+								format( ( diff % aDay ) / aHour ) + ":" +
+								format( ( ( diff % aDay ) % aHour ) / aMinute ) + ":" +
+								format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
 				}
 
 				return time_left;
@@ -87,10 +88,10 @@
 				window[ 'toggle_switch' ] = !window[ 'toggle_switch' ];
 			}
 			
-			function youtube_iframe( url )
+			function youtube_iframe( video_id )
 			{
 				var ifrm = document.createElement( 'iframe' );
-				ifrm.setAttribute( "src", "http://www.youtube.com/embed/1aBaX9GPSaQ?autoplay=1" ); 
+				ifrm.setAttribute( "src", "http://www.youtube.com/embed/" + video_id + "?autoplay=1" ); 
 				ifrm.style.width = 1 + "px"; 
 				ifrm.style.height = 1 + "px"; 
 				ifrm.style.border = 'none';
@@ -121,6 +122,7 @@
 			var target_date = new Date();
 			target_url = -1;
 		}
+		
 		interval_id = setInterval( function () { document.getElementById( "counter" ).innerHTML = timeRemaining( target_date ); }, 100 );
 	</script>
 </html>
