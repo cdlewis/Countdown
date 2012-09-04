@@ -55,9 +55,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			// Pad the number with an extra zero and round down (lack of integer division fail!)
 			function format( number )
 			{
-				if( number > -10 && number < 10 )
+				number = Math.abs( number )
+				
+				if( number < 10 )
 					return "0" + Math.floor( number );
-				return Math.floor( number );
+				else
+					return Math.floor( number );
 			}
 			
 			// Calculate time remaining based on current time
