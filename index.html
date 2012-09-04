@@ -64,14 +64,37 @@
 				if( diff >= 0 )
 				{
 					document.body.style.color = 'red';
+					clearInterval( interval_id );
+					window.interval_id = setInterval( function() { toggle( 'counter' ); }, 800 );
+					
 					if( target_url != -1 )
-					{
-						clearInterval( interval_id );
-						window.location = target_url;
-					}
+						youtube_iframe( target_url );
 				}
 
 				return time_left;
+			}
+			
+			function toggle( time_element )
+			{
+				if( typeof window[ 'toggle_switch' ] === 'undefined' )
+					window[ 'toggle_switch' ] = false;
+				
+				if( window[ 'toggle_switch' ] == 1 )
+					document.getElementById( time_element ).style.display = 'None';
+				else
+					document.getElementById( time_element ).style.display = 'table-cell';
+				
+				window[ 'toggle_switch' ] = !window[ 'toggle_switch' ];
+			}
+			
+			function youtube_iframe( url )
+			{
+				var ifrm = document.createElement( 'iframe' );
+				ifrm.setAttribute( "src", "http://www.youtube.com/embed/1aBaX9GPSaQ?autoplay=1" ); 
+				ifrm.style.width = 1 + "px"; 
+				ifrm.style.height = 1 + "px"; 
+				ifrm.style.border = 'none';
+				document.body.appendChild( ifrm ); 
 			}
 		</script>
 	</head>	
@@ -95,7 +118,6 @@
 		}
 		catch( e )
 		{
-			alert( 'Invalid date specified, reverting to current time' );
 			var target_date = new Date();
 			target_url = -1;
 		}
