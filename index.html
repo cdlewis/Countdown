@@ -17,134 +17,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <html>
 	<head>
 		<title>Chris' Countdown</title>
-		<style type="text/css">
-			*, html, body, #container #counter
-			{
-				margin: 0;
-				padding: 0;
-				height: 100%;
-			}
-			
-			body
-			{
-				background-color: black;
-				color: white;
-				font-size: 9em;
-				font-family: Verdana;
-			}
-			
-			#container
-			{
-				display: table;
-				margin: 0 auto;
-			}
-			
-			#counter
-			{
-				display: table-cell;
-				vertical-align: middle;
-			}
-		</style>
-		<script type="text/javascript">
-			// Define time in ms
-			aDay = 86400000;
-			aHour = 3600000;
-			aMinute = 60000;
-			aSecond = 1000;
-		
-			// Pad the number with an extra zero and round down (lack of integer division fail!)
-			function format( number )
-			{
-				number = Math.abs( number )
-				
-				if( number < 10 )
-					return "0" + Math.floor( number );
-				else
-					return Math.floor( number );
-			}
-			
-			// Calculate time remaining based on current time
-			function timeRemaining( target_date )
-			{
-				// difference in time (ms)
-				var now = new Date();
-				var diff = now.getTime() - target_date.getTime();
-
-				// Check if countdown should end
-				if( diff >= 0 )
-				{
-					document.body.style.color = 'red';
-					clearInterval( interval_id );
-					window.interval_id = setInterval( function() { toggle( 'counter' ); }, 800 );
-					
-					if( target_url != -1 )
-						youtube_iframe( target_url );
-					
-					var time_left = "00:00:00:00";
-				}
-				// Otherwise format normally
-				else
-				{
-					var time_left = format( diff / aDay ) + ":" +
-								format( ( diff % aDay ) / aHour ) + ":" +
-								format( ( ( diff % aDay ) % aHour ) / aMinute ) + ":" +
-								format( ( ( ( diff % aDay ) % aHour ) % aMinute ) / aSecond );
-				}
-
-				return time_left;
-			}
-			
-			function toggle( time_element )
-			{
-				if( typeof window[ 'toggle_switch' ] === 'undefined' )
-					window[ 'toggle_switch' ] = false;
-				
-				if( window[ 'toggle_switch' ] == 1 )
-					document.getElementById( time_element ).style.display = 'None';
-				else
-					document.getElementById( time_element ).style.display = 'table-cell';
-				
-				window[ 'toggle_switch' ] = !window[ 'toggle_switch' ];
-			}
-			
-			function youtube_iframe( video_id )
-			{
-				var ifrm = document.createElement( 'iframe' );
-				ifrm.setAttribute( "src", "http://www.youtube.com/embed/" + video_id + "?autoplay=1" ); 
-				ifrm.style.width = 600 + "px"; 
-				ifrm.style.height = 400 + "px"; 
-				ifrm.style.border = 'none';
-				ifrm.style.position = 'fixed';
-				ifrm.style.top = '1px';
-				ifrm.style.opacity = '0';
-				document.body.appendChild( ifrm ); 
-			}
-		</script>
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="main.js"></script>
 	</head>	
 	<body>
+		<div class="ribbon">
+			<a id="activateModal" href="#createCountdown">Create your Own!</a>
+		</div>
+		<div id="createCountdown">
+			<div id="createCountdown-ct">
+				<div id="signup-header">
+					<h2>Create a new Countdown</h2>
+					<p>It's simple, and free.</p>
+					<a class="modal_close" href=""></a>
+				</div>
+				<form action="">
+					<div class="txt-fld">
+						<label for="">Title</label>
+						<input id="" name="" type="text" />
+					</div>
+					<div class="txt-fld">
+						<label for="">Date</label>
+						<input id="" type="text" placeholder="DD/MM/YYYY" />
+					</div>
+					<div class="txt-fld">
+						<label for="">Time</label>
+						<input id="" type="text" placeholder="HH:MM" />
+					</div>
+					<div class="btn-fld">
+						<button id="saveCountdown" type="submit">Create &raquo;</button>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div id="container">
-			<p id="counter"></p>
+			<div id="counter">
+				<h1 id="title">Time until Coffee</h1>
+				<p id="time"></p>
+			</div>
 		</div>
 	</body>
-	<script type="text/javascript">
-		try
-		{
-			var raw = window.location.href.split( '#' )[ 1 ].split( ';' );
-
-			var x = raw[ 0 ].split( '.' );
-			var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
-			
-			if( raw.length == 2 && raw[ 1 ] != '' )
-				target_url = raw[ 1 ];
-			else
-				target_url = -1;
-		}
-		catch( e )
-		{
-			var target_date = new Date();
-			target_url = -1;
-		}
-		
-		interval_id = setInterval( function () { document.getElementById( "counter" ).innerHTML = timeRemaining( target_date ); }, 100 );
-	</script>
+	<script type="text/javascript" src="leanModal.js"></script>
 </html>
