@@ -11,7 +11,6 @@ String.prototype.format = function() {
   });
 };
 
-
 // Date and Time Functions
 DAY = 86400000;
 HOUR = 3600000;
@@ -127,6 +126,7 @@ $( document ).ready( function()
 		event.preventDefault();
 		
 		// If any field is blank then set it to the current date/time
+		var current_date = new Date();
 		if( $( "#year" ).val() == "" )
 			$( "#year > option[value={0}]".format( current_date.getFullYear() ) ).attr( 'selected', 'selected' )
 		if( $( "#month" ).val() == "" )
@@ -134,7 +134,12 @@ $( document ).ready( function()
 		if( $( "#day" ).val() == "" )
 			$( "#day > option[value={0}]".format( current_date.getDate() ) ).attr( 'selected', 'selected' );
 		if( $( "#hour" ).val() == "" )
-			$( "#hour > option[value={0}]".format( current_date.getHours() ) ).attr( 'selected', 'selected' );
+		{
+			// In order for hours to be set accurately, the meridiem has to be correct
+			$( "#meridiem > option[value={0}]".format( current_date.getHours() <= 12 ? 0 : 12 ) ).attr( 'selected', 'selected' );
+			
+			$( "#hour > option[value={0}]".format( current_date.getHours() - parseInt( $( "#meridiem" ).val() ) ) ).attr( 'selected', 'selected' );
+		}
 		if( $( "#minute" ).val() == "" )
 			$( "#minute > option[value={0}]".format( current_date.getMinutes() ) ).attr( 'selected', 'selected' );
 		
