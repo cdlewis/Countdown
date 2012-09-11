@@ -73,7 +73,8 @@ function toggle( time_element )
 
 $( document ).ready( function()
 {
-	$( "#activateModal" ).leanModal();
+	$( "#activateModal" ).leanModal( { closeButton: '.modal_close' } );
+
 	var current_date = new Date();
 
 	try
@@ -83,7 +84,7 @@ $( document ).ready( function()
 
 		$.each( x, function( index, value ) 
 		{
-			if( isNaN( value ) )
+			if( isNaN( value ) || value == "" )
 				throw value;
 		} );
 
