@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<title>Chris' Countdown</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="leanModal.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 	</head>	
 	<body>
@@ -35,15 +36,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				<form action="">
 					<div class="txt-fld">
 						<label for="">Title</label>
-						<input id="" name="" type="text" />
+						<input id="input_title" name="" type="text" />
 					</div>
 					<div class="txt-fld">
 						<label for="">Date</label>
-						<input id="" type="text" placeholder="DD/MM/YYYY" />
+						<select id="day">
+							<option value="" selected="selected" disabled="disabled">Day</option>
+						</select>
+						<select id="month">
+							<option value="" selected="selected" disabled="disabled">Month</option>
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>
+						<select id="year">
+							<option value="" selected="selected" disabled="disabled">Year</option>
+						</select>
 					</div>
 					<div class="txt-fld">
 						<label for="">Time</label>
-						<input id="" type="text" placeholder="HH:MM" />
+						<select id="hour">
+							<option value="" selected="selected" disabled="disabled">Hour</option>
+						</select>
+						<select id="minute">
+							<option value="" selected="selected" disabled="disabled">Minute</option>
+						</select>
+						<select id="meridiem">
+							<option value="0">AM</option>
+							<option value="12">PM</option>
+						</select>
 					</div>
 					<div class="btn-fld">
 						<button id="saveCountdown" type="submit">Create &raquo;</button>
@@ -53,10 +83,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		</div>
 		<div id="container">
 			<div id="counter">
-				<h1 id="title">Time until Coffee</h1>
+				<h1 id="title"></h1>
 				<p id="time"></p>
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="leanModal.js"></script>
 </html>
