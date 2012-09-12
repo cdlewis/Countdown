@@ -91,7 +91,7 @@ $( document ).ready( function()
 		var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
 
 		if( y.length == 3 && y[ 2 ].length > 0 )
-			decodeURI( $( '#title' ).html( y[ 2 ] ) ); // not safe
+			$( '#title' ).html( decodeURI( y[ 2 ] ) ); // not safe
 		else
 			$( '#title' ).css( 'display', 'none' );
 	}
