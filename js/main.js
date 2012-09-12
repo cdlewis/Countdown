@@ -1,6 +1,6 @@
 /* Standard Library Functions */
 
-// String Format
+// String Functions
 String.prototype.format = function() {
   var args = arguments;
   return this.replace(/{(\d+)}/g, function(match, number) { 
@@ -10,6 +10,14 @@ String.prototype.format = function() {
     ;
   });
 };
+
+String.prototype.escape = function()
+{
+	return this.replace( /&/g, '&amp;' ).
+	replace(/</g, '&lt;').
+	replace(/"/g, '&quot;').
+	replace(/'/g, '&#039;');
+}
 
 // Date and Time Functions
 DAY = 86400000;
@@ -91,7 +99,7 @@ $( document ).ready( function()
 		var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
 
 		if( y.length == 3 && y[ 2 ].length > 0 )
-			$( '#title' ).html( decodeURI( y[ 2 ] ) ); // not safe
+			$( '#title' ).html( decodeURI( y[ 2 ] ).escape() );
 		else
 			$( '#title' ).css( 'display', 'none' );
 	}
