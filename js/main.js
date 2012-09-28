@@ -36,15 +36,8 @@ function toggle( time_element )
 
 function youtube_iframe( video_id )
 {
-	var ifrm = document.createElement( 'iframe' );
-	ifrm.setAttribute( "src", "http://www.youtube.com/embed/" + video_id + "?autoplay=1" ); 
-	ifrm.style.width = 600 + "px"; 
-	ifrm.style.height = 400 + "px"; 
-	ifrm.style.border = 'none';
-	ifrm.style.position = 'fixed';
-	ifrm.style.top = '1px';
-	ifrm.style.opacity = '0';
-	document.body.appendChild( ifrm ); 
+	$( 'body' ).append( '<iframe src="http://www.youtube.com/embed/{0}?autoplay=1" class="hidden_frame" style="opacity: 0;"></iframe>'.format( video_id ) );
+	$( 'body' ).append( '<div class="hidden_frame"></div>' );
 }
 
 $( document ).ready( function()
