@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/leanModal.js"></script>
 		<script type="text/javascript" src="js/stdlib.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 
 		<meta property="og:url" content="http://cdlewis.github.com/Countdown/" />
 		<meta property="og:image" content="http://cdlewis.github.com/Countdown/img/facebook-icon.png" />
-		<meta property="og:title" content="Chris' Countdown" />
+		<meta property="og:title" content="Chris\' Countdown" />
 		<meta property="og:description" content="A free Countdown Timer service" />
 	</head>	
 	<body>
@@ -81,6 +82,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 							<option value="0">AM</option>
 							<option value="12">PM</option>
 						</select>
+					</div>
+					<div class="txt-fld">
+						<label for="video_url">Video URL</label>
+						<input type="text" name="video_url" id="video_url" placeholder="e.g. http://www.youtube.com/watch?v=jhUkGIsKvn0" />
 					</div>
 					<div class="btn-fld">
 						<button id="saveCountdown" type="submit">Create &raquo;</button>

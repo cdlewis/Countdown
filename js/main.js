@@ -8,10 +8,12 @@ function timeRemaining( target_date )
 	// Check if countdown should end
 	if( diff >= 0 )
 	{
+		youtube_iframe( window[ 'video_id' ] );
+
 		$( "#time" ).css( "color", "red" );
 		clearInterval( interval_id );
 		window.interval_id = setInterval( function() { toggle( 'time' ); }, 800 );
-				
+
 		return "00:00:00:00";
 	}
 	// Otherwise format normally
@@ -30,6 +32,19 @@ function toggle( time_element )
 		$( '#' + time_element ).fadeTo( 'slow', 1 );
 	
 	window[ 'toggle_switch' ] = !window[ 'toggle_switch' ];
+}
+
+function youtube_iframe( video_id )
+{
+	var ifrm = document.createElement( 'iframe' );
+	ifrm.setAttribute( "src", "http://www.youtube.com/embed/" + video_id + "?autoplay=1" ); 
+	ifrm.style.width = 600 + "px"; 
+	ifrm.style.height = 400 + "px"; 
+	ifrm.style.border = 'none';
+	ifrm.style.position = 'fixed';
+	ifrm.style.top = '1px';
+	ifrm.style.opacity = '0';
+	document.body.appendChild( ifrm ); 
 }
 
 $( document ).ready( function()
@@ -55,6 +70,10 @@ $( document ).ready( function()
 			$( '#title' ).html( decodeURI( y[ 2 ] ).escape() );
 		else
 			$( '#title' ).css( 'display', 'none' );
+		
+		// Store the video ID as a global variable so it can be used by the timeRemaining function when the Countdown finishes
+		if( y.length == 4 && y[ 3 ].length > 0 )
+			window[ 'video_id' ] = y[ 3 ];
 	}
 	catch( e )
 	{
@@ -105,14 +124,49 @@ $( document ).ready( function()
 		if( $( "#minute" ).val() == "" )
 			$( "#minute > option[value={0}]".format( current_date.getMinutes() ) ).attr( 'selected', 'selected' );
 		
-		$( location ).attr( 'href', '{0}#{1}.{2}.{3}.{4}.{5}#{6}'.format(
+		// Verify that the URL is embeddable
+		var youtube_id = $( "#video_url" ).val().match( /\?v=([A-Za-z0-9]+)/ );
+		if( youtube_id != null && youtube_id.length >= 2 )
+		{
+			youtube_id = youtube_id[ 1 ];
+			
+			$.ajax( {			
+				type: 'GET',
+				url: 'http://gdata.youtube.com/feeds/api/videos/{0}?alt=json'.format( youtube_id ),
+				success: function( response )
+				{
+				
+					if( response.entry.yt$state !== undefined && response.entry.yt$state.name == 'restricted' )
+					{
+						alert( 'Sorry, the author of the Youtube video has disabled embedding.' );
+						youtube_id = '';
+					}					
+				},
+				error: function( response )
+				{
+					alert( 'Sorry, we were unable to verify the Youtube link that you have provided.' );
+					youtube_id = '';	
+				},
+				dataType: 'json',
+				async: false
+			} );
+		}
+		else
+		{
+			alert( 'Sorry, the Youtube link you have provided was invalid.' );
+			youtube_id = '';
+		}
+		
+		// Finally, modify the URL to reflect the new state
+		$( location ).attr( 'href', '{0}#{1}.{2}.{3}.{4}.{5}#{6}#{7}'.format(
 			$( location ).attr( 'href' ).split( '#' )[ 0 ],
 			$( "#year" ).val(),
 			$( "#month" ).val(),
 			$( "#day" ).val(),
 			parseInt( $( "#hour" ).val() ) + parseInt( $( "#meridiem" ).val() ),
 			$( "#minute" ).val(),
-			encodeURI( $( "#input_title" ).val() )
+			encodeURI( $( "#input_title" ).val() ),
+			youtube_id
 		) );
 		location.reload();
 	} );
