@@ -59,13 +59,13 @@ $( document ).ready( function()
 
 		var target_date = new Date( x[ 0 ], x[ 1 ] - 1, x[ 2 ], x[ 3 ], x[ 4 ], 0, 0 ); // year, month, day, hours, minutes, seconds, milliseconds
 
-		if( y.length == 3 && y[ 2 ].length > 0 )
+		if( y.length >= 3 && y[ 2 ].length > 0 )
 			$( '#title' ).html( decodeURI( y[ 2 ] ).escape() );
 		else
 			$( '#title' ).css( 'display', 'none' );
 		
 		// Store the video ID as a global variable so it can be used by the timeRemaining function when the Countdown finishes
-		if( y.length == 4 && y[ 3 ].length > 0 )
+		if( y.length >= 4 && y[ 3 ].length > 0 )
 			window[ 'video_id' ] = y[ 3 ];
 	}
 	catch( e )
