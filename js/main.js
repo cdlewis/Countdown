@@ -48,7 +48,8 @@ $( document ).ready( function()
 
 	try
 	{
-		var y = $( location ).attr( 'href' ).split( '#' );
+		// %23 = escaped #
+		var y = $( location ).attr( 'href' ).replace( /%23/g, '#' ).split( '#' );
 		var x = y[ 1 ].split( '.' );
 
 		$.each( x, function( index, value ) 
