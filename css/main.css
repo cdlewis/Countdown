@@ -51,6 +51,14 @@ button
 	font-family: Verdana;
 }
 
+#counter h1 {
+    font-size: 3vw;
+}
+
+#counter p {
+    font-size: 12vw;
+}
+
 /* The Ribbon */
 
 .ribbon {
