@@ -91,7 +91,8 @@ jQuery( document ).ready( function( $ ) {
 
 	try {
 		// %23 = escaped #
-		var y = $( location ).attr( 'href' ).replace( /%23/g, '#' ).split( '#' );
+        var y = $( location ).attr( 'href' );
+        y = y.replace( '?', '#' ).replace( /%23/g, '#' ).split( '#' );
 		var x = y[ 1 ].split( '.' );
 
 		$.each( x, function( index, value ) {
@@ -190,7 +191,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		
 		// Finally, modify the URL to reflect the new state
-		$( location ).attr( 'href', '{0}#{1}.{2}.{3}.{4}.{5}#{6}#{7}'.format(
+		$( location ).attr( 'href', '{0}?{1}.{2}.{3}.{4}.{5}#{6}#{7}'.format(
 			$( location ).attr( 'href' ).split( '#' )[ 0 ],
 			$( "#year" ).val(),
 			$( "#month" ).val(),
